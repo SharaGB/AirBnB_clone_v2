@@ -31,7 +31,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """ """
+        """ Initialize data """
         USER = getenv('HBNB_MYSQL_USER')
         PWD = getenv('HBNB_MYSQL_PWD')
         HOST = getenv('HBNB_MYSQL_HOST')
@@ -47,7 +47,7 @@ class DBStorage:
         """ Query on the current database session """
         new_dict = {}
         if cls is not None:
-            query_cls = self.__session.query(cls)
+            query_cls = self.__session.query(cls).all()
             for obj in query_cls:
                 key = "{}.{}".format(self.__class__.__name__, obj.id)
                 new_dict[key] = obj
