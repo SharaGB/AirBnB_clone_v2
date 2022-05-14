@@ -12,7 +12,7 @@ class FileStorage:
         """Returns a dictionary of models currently in storage by class type"""
         if cls is not None:
             temp = {}
-            temp.update(self.__objects)
+            temp.update(FileStorage.__objects)
             for key, val in temp.items():
                 if val == cls:
                     temp[key] = val
@@ -58,6 +58,7 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
+        """ Returns the list of objects of one type of class """
         if obj is not None:
             key = "{}.{}".format(obj.__class__.__name__, obj.id)
             del self.__objects[key]
