@@ -50,12 +50,16 @@ class DBStorage:
             query_cls = self.__session.query(cls).all()
             for obj in query_cls:
                 key = "{}.{}".format(self.__class__.__name__, obj.id)
+                if '_sa_instance_state' in obj.__dict__.keys():
+                    del obj.__dict__['_sa_instance_state']
                 new_dict[key] = obj
         else:
             for value in classes:
                 query = self.__session.query(classes[value]).all()
                 for obj in query:
                     key = "{}.{}".format(self.__class__.__name__, obj.id)
+                    if '_sa_instance_state' in obj.__dict__.keys():
+                        del obj.__dict__['_sa_instance_state']
                     new_dict[key] = obj
         return new_dict
 
