@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from models.base_model import BaseModel
-from models.base_model import Base
+import models
+from os import getenv
+from models.city import City
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+from models.base_model import BaseModel, Base
 
 
 class State(BaseModel, Base):
@@ -11,7 +13,14 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
 
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state")
-# Faltan 2 puntos:
-# for DBStorage: class attribute cities must represent a relationship with the class City. If the State object is deleted, all linked City objects must be automatically deleted. Also, the reference from a City object to his State should be named state
-# for FileStorage: getter attribute cities that returns the list of City instances with state_id equals to the current State.id => It will be the FileStorage relationship between State and City
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        cities = relationship("City", backref="state")
+    else:
+        @property
+        def cities(self):
+            """ Getter attribute cities that returns the list of City """
+            city_instances = []
+            for city in models.storage.all(City).values():
+                 if city.state_id == self.id:
+                      city_instances.append(city)
+            return city_instances

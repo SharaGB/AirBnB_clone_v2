@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-""" """
-import sys
+""" New engine DBStorage """
 from os import getenv
 from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
+
 from models.user import User
 from models.state import State
 from models.city import City
@@ -26,7 +26,7 @@ classes = {
 
 
 class DBStorage:
-    """ """
+    """ Query on the current database session """
     __engine = None
     __session = None
 
@@ -45,7 +45,19 @@ class DBStorage:
 
     def all(self, cls=None):
         """ Query on the current database session """
-    # Faltaaaaaaaaaa :c
+        new_dict = {}
+        if cls is not None:
+            query_cls = self.__session.query(cls)
+            for obj in query_cls:
+                key = "{}.{}".format(self.__class__.__name__, obj.id)
+                new_dict[key] = obj
+        else:
+            for value in classes:
+                query = self.__session.query(classes[value]).all()
+                for obj in query:
+                    key = "{}.{}".format(self.__class__.__name__, obj.id)
+                    new_dict[key] = obj
+        return new_dict
 
     def new(self, obj):
         """ Add the object to the current database session """
@@ -61,7 +73,7 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """ """
+        """ Create all tables in the database """
         Base.metadata.create_all(self.__engine)
         session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session)  # Make sure your Session is safe
