@@ -10,17 +10,17 @@ from models.base_model import BaseModel, Base
 
 class State(BaseModel, Base):
     """ State class """
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = 'states'
 
-        name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state")
-    else:
-        @property
-        def cities(self):
-            """ Getter attribute cities that returns the list of City """
-            city_instances = []
-            for city in models.storage.all(City).values():
-                if city.state_id == self.id:
-                    city_instances.append(city)
-            return city_instances
+    __tablename__ = 'states'
+
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", backref="state")
+
+    @property
+    def cities(self):
+        """ Getter attribute cities that returns the list of City """
+        city_instances = []
+        for city in models.storage.all(City).values():
+            if city.state_id == self.id:
+                city_instances.append(city)
+        return city_instances
