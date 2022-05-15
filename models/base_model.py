@@ -27,7 +27,7 @@ class BaseModel:
                     date = '%Y-%m-%dT%H:%M:%S.%f'
                     value = datetime.strptime(value, date)
                 if key != '__class__':
-                        setattr(self, key, value)
+                    setattr(self, key, value)
 
     def __str__(self):
         """Returns a string representation of the instance"""
