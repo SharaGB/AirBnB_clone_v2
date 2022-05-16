@@ -123,6 +123,9 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
+        elif args[0] == 'Amenity' and len(args) < 2:
+            print("** Amenity name missing **")
+            return
 
         new_instance = HBNBCommand.classes[args[0]]()
         for value in range(1, len(args)):  # cycle thru args
