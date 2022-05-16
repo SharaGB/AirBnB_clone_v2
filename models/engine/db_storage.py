@@ -7,12 +7,12 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
 from models.user import User
-from models.state import State
 from models.city import City
-from models.amenity import Amenity
-from models.place import Place
+from models.state import State
 from models.review import Review
+from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.place import Place, place_amenity
 
 classes = {
     'BaseModel': BaseModel,
