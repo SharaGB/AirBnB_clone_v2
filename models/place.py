@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 import models
+from models import amenity
 from models.review import Review
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
@@ -54,5 +55,7 @@ class Place(BaseModel, Base):
     @amenities.setter
     def amenities(self, value):
         """ Handles append method for adding an Amenity.id to the attribute amenity_ids """
-        if isinstance(value, Amenity):
-            self.amenity_ids.append(value)
+        for value in models.storage.all(Place):
+            if isinstance(value, Amenity):
+                self.amenity_ids.append(Amenity.id)
+            # if attributes.__class__.__name__ == Amenity:
