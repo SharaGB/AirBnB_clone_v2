@@ -10,7 +10,7 @@ from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 
 metadata = Base.metadata
 place_amenity = Table('place_amenity', metadata,
-                      Column('place_id', String(60), ForeignKey('places.id'), primary_key=True),
+                      Column('place_id', String(60), ForeignKey('places.id'), primary_key=True,),
                       Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True))
 
 
@@ -44,18 +44,16 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
         """ Returns the list of Amenity instances """
-        self.amenity_ids = models.storage.all(Amenity)
+        self.amenity_ids = models.FileStorage.all(Amenity)
         return self.amenity_ids
         # amenity_instances = []
         # for amenity in models.storage.all(Amenity).values():
-        #     if amenity.place_id == self.id:
+        #     if amenity.amenity_id == self.id:
         #         amenity_instances.append(amenity)
-        #     return amenity_instances
+        # return amenity_instances
 
     @amenities.setter
     def amenities(self, value):
         """ Handles append method for adding an Amenity.id to the attribute amenity_ids """
-        for value in models.storage.all(Place):
-            if isinstance(value, Amenity):
-                self.amenity_ids.append(Amenity.id)
-            # if attributes.__class__.__name__ == Amenity:
+        if isinstance(value, Amenity):
+            self.amenity_ids.append(value)
