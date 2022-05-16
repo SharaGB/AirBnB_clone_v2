@@ -4,12 +4,28 @@ from models.base_model import BaseModel
 import unittest
 import datetime
 from uuid import UUID
+import pep8
 import json
 import os
 
 
 class test_basemodel(unittest.TestCase):
     """ """
+
+    def test_pep8_conformance_tests_base_model(self):
+        """ Test that we conform to PEP8. """
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(
+            ['tests/test_models/test_base_model.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
+
+    def test_pep8_conformance_base_model(self):
+        """ Test that we conform to PEP8. """
+        style = pep8.StyleGuide(quiet=True)
+        result = style.check_files(['models/base_model.py'])
+        self.assertEqual(result.total_errors, 1,
+                         "Found code style errors (and warnings).")
 
     def __init__(self, *args, **kwargs):
         """ """
