@@ -10,8 +10,8 @@ from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 
 metadata = Base.metadata
 place_amenity = Table('place_amenity', metadata,
-                      Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
-                      Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False))
+                      Column('place_id', String(60), ForeignKey('places.id'), primary_key=True,),
+                      Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True))
 
 
 class Place(BaseModel, Base):
@@ -30,7 +30,7 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
     reviews = relationship("Review", cascade="all, delete", backref="place")
-    amenities = relationship('Amenity', secondary='place_amenity', viewonly=False)
+    amenities = relationship('Amenity', secondary='place_amenity', backref='place_amenities', viewonly=False)
 
     @property
     def reviews(self):
