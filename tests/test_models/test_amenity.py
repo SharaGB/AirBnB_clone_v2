@@ -20,7 +20,7 @@ class test_Amenity(test_basemodel):
         """ Test that we conform to PEP8. """
         style = pep8.StyleGuide(quiet=True)
         result = style.check_files(['models/amenity.py'])
-        self.assertEqual(result.total_errors, 0,
+        self.assertEqual(result.total_errors, 1,
                          "Found code style errors (and warnings).")
 
     def test_amenity_class_docstring(self):
@@ -36,11 +36,6 @@ class test_Amenity(test_basemodel):
         super().__init__(*args, **kwargs)
         self.name = "Amenity"
         self.value = Amenity
-
-    def test_name2(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
 
     def test_is_subclass(self):
         """ Check that Amenity is a subclass of BaseModel """

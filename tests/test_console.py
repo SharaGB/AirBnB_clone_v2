@@ -27,7 +27,6 @@ class TestConsole(TestCase):
                              "console.py file needs a docstrings")
         self.assertIsNot(console.__doc__, None,
                          "console.py needs a docstring")
-        self.assertTrue(len(__doc__) > 0, "console.py have docstrings")
         self.assertTrue(len(console.__doc__) >= 1,
                         "console.py needs a docstrings")
 
