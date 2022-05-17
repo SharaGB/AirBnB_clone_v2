@@ -32,7 +32,8 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     reviews = relationship("Review", cascade="all, delete", backref="place")
-    amenities = relationship('Amenity', secondary='place_amenity', backref='place_amenities', viewonly=False)
+    amenities = relationship('Amenity', secondary='place_amenity',
+                             backref='place_amenities', viewonly=False)
 
     @property
     def reviews(self):
@@ -48,7 +49,7 @@ class Place(BaseModel, Base):
         """ Returns the list of Amenity instances """
         amenity_instances = []
         for amenity in models.storage.all(Amenity).values():
-           if amenity in self.amenity_ids:
+            if amenity in self.amenity_ids:
                 amenity_instances.append(amenity)
         return amenity_instances
 
