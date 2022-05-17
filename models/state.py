@@ -8,7 +8,7 @@ from models.base_model import BaseModel, Base
 
 
 class State(BaseModel, Base):
-    """ State class """
+    """ Class to define a state and its attributes"""
 
     __tablename__ = 'states'
 
