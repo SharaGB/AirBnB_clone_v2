@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" Console Module """
+""" Console Module Executes and does everything
+    for the console to work. """
 import cmd
 import sys
 from models.base_model import BaseModel
@@ -248,7 +249,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def help_count(self):
-        """ """
+        """ Help information for the count method"""
         print("Usage: count <class_name>")
 
     def do_update(self, args):
