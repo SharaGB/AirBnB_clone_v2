@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" New engine DBStorage """
+""" New engine DBStorage for sqlalchemy"""
 from os import getenv
 from models.base_model import Base
 from sqlalchemy import create_engine
@@ -31,7 +31,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """ Initialize data """
+        """ Initialize data and ENVs """
         USER = getenv('HBNB_MYSQL_USER')
         PWD = getenv('HBNB_MYSQL_PWD')
         HOST = getenv('HBNB_MYSQL_HOST')
