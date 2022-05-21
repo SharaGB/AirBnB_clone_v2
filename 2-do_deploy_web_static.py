@@ -11,20 +11,18 @@ def do_deploy(archive_path):
     if not exists(archive_path):
         return False
     try:
+        filename = archive_path.split('/')[-1].split('.')[0]
+        path = '/data/web_static/releases/{}'.format(filename)
         put(archive_path, '/tmp/')
-        file = archive_path.split('/')[-1].split('.')[0]
-        run('mkdir -p /data/web_static/releases/{}/'.format(file))
-        run('tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}'
-            .format(file, file))
-        run('rm /tmp/{}.tgz'.format(file))
-        run('mv /data/web_static/releases/{}/web_static/* \
-            /data/web_static/releases/{}'.format(file, file))
-        run('rm -rf /data/web_static/releases/{}/web_static'.format(file))
+        run('mkdir -p {}/'.format(path))
+        run('tar -xzf /tmp/{} -C {}'.format(filename, path))
+        run('rm /tmp/{}'.format(filename))
+        run('mv {0}/web_static/* {0}/'.format(path))
+        run('rm -rf {}/web_static'.format(path))
         run('rm -rf /data/web_static/current')
-        run('ln -s /data/web_static/releases/{}\
-            /data/web_static/current'.format(file))
-        print("New version deployed!")
+        run('ln -s {}/ /data/web_static/current'.format(path))
+        print('New version deployed!')
         return True
-
     except Exception as e:
+        print(e)
         return False
