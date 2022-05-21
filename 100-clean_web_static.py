@@ -53,3 +53,11 @@ def deploy():
 
 def do_clean(number=0):
     """ Delete put-of-date archives """
+    number = int(number)
+    if number < 0:
+        return None
+    number = 2 if (number == 0 or number == 1) else (number + 1)
+    with lcd("./versions"):
+        local('rm -rf $(ls -t | tail -n +{})'.format(number))
+    with cd("/data/web_static/releases"):
+        run('rm -rf $(ls -t | tail -n +{})'.format(number))
