@@ -10,7 +10,7 @@ env.hosts = ['34.148.132.49', '3.95.23.58']
 def do_pack():
     """ Function that generates tgz archive """
     if not exists("versions"):
-        local("mkdir -p versions")
+        local("mkdir versions")
     try:
         date = datetime.now().strftime("%Y%m%d%H%M%S")
         name_archive = "versions/web_static_{}.tgz".format(date)
@@ -25,10 +25,11 @@ def do_deploy(archive_path):
     if not exists(archive_path):
         return False
     try:
-        filename = archive_path.split('/')[-1].split(".")[0]
-        path = '/data/web_static/releases/{}'.format(filename)
+        filename = archive_path.split("/")[-1]
+        name = filename.split(".")[0]
+        path = "/data/web_static/releases/{}".format(name)
         put(archive_path, '/tmp/')
-        run('mkdir -p {}'.format(path))
+        run('mkdir -p {}/'.format(path))
         run('tar -xzf /tmp/{} -C {}'.format(filename, path))
         run('rm /tmp/{}'.format(filename))
         run('mv {}/web_static/* {}/'.format(path, path))
@@ -38,6 +39,7 @@ def do_deploy(archive_path):
         print('New version deployed!')
         return True
     except Exception as e:
+        print(e)
         return False
 
 
