@@ -13,7 +13,7 @@ if ! [ -d "/data/web_static/releases/" ]; then sudo mkdir -p /data/web_static/re
 if ! [ -d "/data/web_static/shared/" ]; then sudo mkdir -p /data/web_static/shared/; fi
 if ! [ -d "/data/web_static/releases/test/" ]; then sudo mkdir -p /data/web_static/releases/test/; fi
 sudo touch /data/web_static/releases/test/index.html
-echo " Fake HTML file :) " > /data/web_static/>
+echo "Fake HTML file :)" > /data/web_static/releases/test/index.html
 if [ -d "data/web_static/current" ]; then sudo rm -rf /data/web_static/current; fi
 # Create a linked symbolic link, if it exists, it must be removed and recreated
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
