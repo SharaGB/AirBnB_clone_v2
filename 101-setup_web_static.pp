@@ -1,16 +1,19 @@
 # Configuring Nginx with puppet
 
-exec { 'Update Nginx:
-  command  => 'if ! [ "$(command -v nginx)" ];
+exec { 'executing in nginx':
+  command  => 'if ! dpkg -s nginx > /dev/null;
                then apt-get -y update;
-               apt-get install nginx -y;
+               apt-get -y upgrade;
+               apt-get -y install nginx;
                fi;
                sudo mkdir -p /data/web_static/releases/test/;
                sudo mkdir -p /data/web_static/shared/;
-               echo Fake HTML File :) | sudo tee /data/web_static/releases/test/index.html;
+               echo Holberton School | sudo tee /data/web_static/releases/test/index.html;
                sudo ln -sf /data/web_static/releases/test/ /data/web_static/current;
                sudo chown -R ubuntu:ubuntu /data/;
-               sudo sed -i 55i \\t\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t} /etc/nginx/sites-available/default;
+               sudo sed -i /:80 default_server;/ a \\\n\tlocation\
+            /hbnb_static {\n\talias /data/web_static/current/;\n\t}/\
+            /etc/nginx/sites-available/default;
                sudo service nginx restart',
   provider => shell,
 }
