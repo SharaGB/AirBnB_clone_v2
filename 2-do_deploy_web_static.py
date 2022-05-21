@@ -15,13 +15,13 @@ def do_deploy(archive_path):
         name = filename.split(".")[0]
         path = "/data/web_static/releases/{}".format(name)
         put(archive_path, '/tmp/')
-        run('sudo mkdir -p {}/'.format(path))
-        run('sudo tar -xzf /tmp/{} -C {}'.format(filename, path))
-        run('sudo rm /tmp/{}'.format(filename))
-        run('sudo mv {0}/web_static/* {0}/'.format(path))
-        run('sudo rm -rf {}/web_static'.format(path))
-        run('sudo rm -rf /data/web_static/current')
-        run('sudo ln -s {}/ /data/web_static/current'.format(path))
+        run('mkdir -p {}/'.format(path))
+        run('tar -xzf /tmp/{} -C {}'.format(filename, path))
+        run('rm /tmp/{}'.format(filename))
+        run('mv {}/web_static/* {}/'.format(path, path))
+        run('rm -rf {}/web_static'.format(path))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}/ /data/web_static/current'.format(path))
         print('New version deployed!')
         return True
     except Exception as e:
