@@ -51,3 +51,7 @@ class FileStorage:
                     FileStorage.__objects[key] = temp
         except Exception:
             pass
+
+    def close(self):
+        """ Deserializing the JSON file to objects """
+        self.reload()
