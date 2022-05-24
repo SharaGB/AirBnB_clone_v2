@@ -24,13 +24,14 @@ class DBStorage:
 
     def __init__(self):
         """ Initialize data and ENVs """
+        mysql = 'mysql+mysqldb://{}:{}@{}/{}'
         USER = getenv('HBNB_MYSQL_USER')
         PWD = getenv('HBNB_MYSQL_PWD')
         HOST = getenv('HBNB_MYSQL_HOST')
         DB = getenv('HBNB_MYSQL_DB')
 
-        self.__engine = create_engine(
-            f'mysql+mysqldb://{USER}:{PWD}@{HOST}/{DB}', pool_pre_ping=True)
+        self.__engine = create_engine(mysql.format(
+            USER, PWD, HOST, DB), pool_pre_ping=True)
         # Drop all tables if the environment variable HBNB_ENV is equal to test
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
