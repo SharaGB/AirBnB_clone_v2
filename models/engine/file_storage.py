@@ -9,8 +9,8 @@ from models.review import Review
 from models.amenity import Amenity
 from models.base_model import BaseModel
 
-classes = {'BaseModel': BaseModel, 'User': User, 'State': State, 'Amenity': Amenity,
-           'Place': Place, 'City': City, 'Review': Review}
+classes = {'BaseModel': BaseModel, 'User': User, 'State': State,
+           'Amenity': Amenity, 'Place': Place, 'City': City, 'Review': Review}
 
 
 class FileStorage:
