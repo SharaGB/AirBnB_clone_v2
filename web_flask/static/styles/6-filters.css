@@ -35,22 +35,20 @@
 }
 
 h2 {
-    margin-top: 25px;
+    margin-top: 20px;
     margin-bottom: 5px;
 }
 
 h3 {
-    font-weight: 600;
+    font-weight: 700;
     position: relative;
-    left: 20%;
+    left: 15%;
 }
 
 h4 {
     font-weight: 400;
     font-size: 14px;
     position: relative;
-    left: 20%;
-    bottom: 25%;
 }
 
 .popover {
@@ -75,7 +73,7 @@ h4 {
 }
 
 .locations > .popover > li > ul > li {
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .amenities:hover > .popover {
@@ -87,12 +85,10 @@ h4 {
 
 .amenities > .popover > li {
     padding-left: 30px;
-}
-
-.amenities > .popover > li {
     margin-bottom: 8px;
 }
 
 ul {
     list-style-type: none;
 }
+
